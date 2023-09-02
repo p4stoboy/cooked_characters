@@ -12,7 +12,7 @@ export const new_character = async (i: ModalSubmitInteraction): Promise<void> =>
 
     try {
         const conn = await get_db_connection();
-        await conn.query(`INSERT INTO characters(name, bio, creator_id, image_url) VALUES(?, ?, ?, ?)`, [name, bio, creator_id, image_url]);
+        await conn.query(`INSERT INTO characters(name, bio, creator_id, image_url, guild_id) VALUES(?, ?, ?, ?, ?)`, [name, bio, creator_id, image_url, i.guildId]);
         const res = await conn.query(`SELECT * FROM characters WHERE creator_id = ? ORDER BY id DESC LIMIT 1`, [creator_id]);
         const char = res[0];
         console.log(char);
