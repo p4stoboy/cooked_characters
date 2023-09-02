@@ -18,7 +18,7 @@ export const add_char_command = async (client: Client, guild_id: string, char: C
         execute: async (interaction: any) => {
             const prompt = interaction.options.getString("prompt");
             const response = await get_prompt_response(prompt, char);
-            await interaction.reply(build_char_embed(char, prompt, response));
+            await interaction.editReply(build_char_embed(char, prompt, response));
         }
     };
     const guild = await client.guilds.fetch(guild_id);
