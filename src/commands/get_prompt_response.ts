@@ -21,5 +21,6 @@ export const get_prompt_response = async (prompt: string, char: CharacterProps):
     if (!completion || !completion.choices[0].message.content || completion.choices[0].message.content.split(' ').length < 2 || completion.choices[0].message.content.length > 1980) {
         return "Error";
     }
+    console.log(completion);
     return completion.choices[0].message.content;
 }
