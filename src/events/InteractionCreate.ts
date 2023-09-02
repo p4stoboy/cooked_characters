@@ -30,6 +30,7 @@ export const InteractionCreate = {
         console.error(error);
       }
     } else {
+        await interaction.deferReply();
         await new_character(interaction);
     }
   },
