@@ -11,7 +11,7 @@ export const get_prompt_response = async (prompt: string, char: CharacterProps):
     const completion: ChatCompletion = await openai.chat.completions.create({
         messages: messages,
         model: "gpt-3.5-turbo",
-        max_tokens: 400,
+        max_tokens: 300,
         temperature: 0.9,
         top_p: 1,
         presence_penalty: 1,
