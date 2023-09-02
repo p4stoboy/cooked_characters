@@ -23,7 +23,7 @@ export const build_char_commands = async (guild_id: string) => {
             execute: async (interaction: any) => {
                 const prompt = interaction.options.getString("prompt");
                 const response = await get_prompt_response(prompt, char);
-                await interaction.reply(build_char_embed(char, prompt, response));
+                await interaction.editReply(build_char_embed(char, prompt, response));
             }
         })
     }
