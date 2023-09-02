@@ -12,9 +12,9 @@ export const new_character = async (i: ModalSubmitInteraction): Promise<void> =>
     try {
         const conn = await get_db_connection();
         await conn.query(`INSERT INTO characters(name, bio, creator_id, image_url) VALUES(?, ?, ?, ?)`, [name, bio, creator_id, image_url]);
-        await register_commands(i.client, i.guildId as string);
         await i.editReply({content: `**Character created.**`});
         await conn.end();
+        await register_commands(i.client, i.guildId as string);
     } catch(e) {
         console.log(e);
     }

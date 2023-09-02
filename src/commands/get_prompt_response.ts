@@ -6,7 +6,7 @@ import {ChatCompletion, CreateChatCompletionRequestMessage} from "openai/resourc
 export const get_prompt_response = async (prompt: string, char: CharacterProps): Promise<string> => {
     const messages: CreateChatCompletionRequestMessage[] = [
         {role: "system", content: char.bio},
-        {role: "user", content: prompt},
+        {role: "user", content: `you are ${char.name}, respond to this in character: \"${prompt}\"`},
     ];
     const completion: ChatCompletion = await openai.chat.completions.create({
         messages: messages,
