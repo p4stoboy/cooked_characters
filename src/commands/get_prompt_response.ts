@@ -8,9 +8,19 @@ export const get_prompt_response = async (prompt: string, char: CharacterProps):
         {role: "system", content: `This is ${char.name}\'s biography: ${char.bio}`},
         {role: "user", content: `you are ${char.name}, respond to this: \"${prompt}\"`},
     ];
+    // const completion: ChatCompletion = await openai.chat.completions.create({
+    //     messages: messages,
+    //     model: "gpt-3.5-turbo",
+    //     max_tokens: 200,
+    //     temperature: 0.9,
+    //     top_p: 1,
+    //     presence_penalty: 1,
+    //     frequency_penalty: 1,
+    //     n: 1,
+    // });
     const completion: ChatCompletion = await openai.chat.completions.create({
         messages: messages,
-        model: "gpt-3.5-turbo",
+        model: "text-davinci-002",
         max_tokens: 200,
         temperature: 0.9,
         top_p: 1,
