@@ -16,14 +16,14 @@ export const ready = {
         options: []
       }
     ]);
-    client.guilds.cache.forEach(async (guild) => {
-      try {
-        await register_commands(client, guild.id);
-        console.log(`Successfully registered application commands in ${guild.name}.`);
-      } catch(e) {
-        console.log(e);
-        console.error(`Error registering commands in guild ${guild.name}, id: ${guild.id}`);
-      }
-    });
+    // client.guilds.cache.forEach(async (guild) => {
+    //   try {
+    //     await register_commands(client, guild.id);
+    //     console.log(`Successfully registered application commands in ${guild.name}.`);
+    //   } catch(e) {
+    //     console.log(e);
+    //     console.error(`Error registering commands in guild ${guild.name}, id: ${guild.id}`);
+    //   }
+    // });
   },
 }
