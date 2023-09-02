@@ -5,6 +5,7 @@ import {get_prompt_response} from "./get_prompt_response";
 
 export const build_char_commands = async (guild_id: string) => {
     const chars = await get_guild_chars(guild_id);
+    console.log(chars);
     if (chars.length === 0) return [];
     const res = [];
     for (let char of chars) {
