@@ -19,7 +19,7 @@ export const get_prompt_response = async (prompt: string, char: CharacterProps):
     //     n: 1,
     // });
     const completion = await openai.completions.create({
-        prompt: "This is " + char.name + "'s biography: " + char.bio + "\n" + "respond to this: \"" + prompt + "\" as if you were " + char.name,
+        prompt: `A person named ${char.name} who has been described as ${char.bio}, responded to "${prompt}" by saying:`,
         model: "text-davinci-002",
         max_tokens: 180,
         temperature: 0.9,
