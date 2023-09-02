@@ -9,10 +9,11 @@ export const new_character = async (i: ModalSubmitInteraction): Promise<void> =>
     const bio = f.getTextInputValue(`bio`);
     const creator_id = i.user.id;
     const image_url = f.getTextInputValue(`image_url`);
+    const color = f.getTextInputValue(`color`);
 
     try {
         const conn = await get_db_connection();
-        await conn.query(`INSERT INTO characters(name, bio, creator_id, image_url, guild_id) VALUES(?, ?, ?, ?, ?)`, [name, bio, creator_id, image_url, i.guildId]);
+        await conn.query(`INSERT INTO characters(name, bio, creator_id, image_url, guild_id, color) VALUES(?, ?, ?, ?, ?, ?)`, [name, bio, creator_id, image_url, i.guildId, color]);
         const res = await conn.query(`SELECT * FROM characters WHERE creator_id = ? ORDER BY id DESC LIMIT 1`, [creator_id]);
         const char = res[0];
         console.log(char);
