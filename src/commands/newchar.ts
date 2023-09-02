@@ -3,9 +3,9 @@ import {ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle
 // create discord modal with fields for user to create new character
 const char_modal = new ModalBuilder().setTitle('New Character').setCustomId("newchar");
 
-const name = new TextInputBuilder().setLabel("Character's name").setCustomId("name").setRequired(true).setStyle(2);
+const name = new TextInputBuilder().setLabel("Character's name").setCustomId("name").setRequired(true).setStyle(1).setMaxLength(32);
 
-const bio = new TextInputBuilder().setLabel("Character's bio").setCustomId("bio").setRequired(true).setMinLength(50).setMaxLength(2000).setStyle(1);
+const bio = new TextInputBuilder().setLabel("Character's bio").setCustomId("bio").setRequired(true).setMinLength(50).setMaxLength(2000).setStyle(2);
 
 const image_url= new TextInputBuilder().setLabel("Avatar URL (optional)").setCustomId("image_url").setRequired(false).setStyle(1);
 
