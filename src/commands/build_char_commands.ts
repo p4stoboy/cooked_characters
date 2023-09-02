@@ -9,7 +9,7 @@ export const build_char_commands = async (guild_id: string) => {
     const res = [];
     for (let char of chars) {
         res.push({
-            name: char.name.replace(" ", "_").toLowerCase(),
+            name: char.name.replaceAll(" ", "_").toLowerCase(),
             description: `Say something to ${char.name}`,
             options: [
                 {

@@ -5,7 +5,7 @@ import {CharacterProps} from "../types/CharacterProps";
 
 export const add_char_command = async (client: Client, guild_id: string, char: CharacterProps) => {
     const command = {
-        name: char.name.replace(" ", "_").toLowerCase(),
+        name: char.name.replaceAll(" ", "_").toLowerCase(),
         description: `Say something to ${char.name}`,
         options: [
             {
