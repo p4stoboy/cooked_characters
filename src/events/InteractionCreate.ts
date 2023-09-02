@@ -15,8 +15,6 @@ export const InteractionCreate = {
         return;
       }
       const {commands} = await get_commands(interaction.guildId as string);
-      console.log(interaction.commandName);
-      console.log(commands);
       const command = commands.get(interaction.commandName);
 
       if (!command) {
@@ -25,6 +23,7 @@ export const InteractionCreate = {
       }
 
       try {
+        await interaction.deferReply();
         //@ts-ignore
         await command.execute(interaction);
       } catch (error) {
