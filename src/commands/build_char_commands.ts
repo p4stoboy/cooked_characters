@@ -5,7 +5,6 @@ import {get_prompt_response} from "./get_prompt_response";
 
 export const build_char_commands = async (guild_id: string) => {
     const chars = await get_guild_chars(guild_id);
-    console.log(chars);
     if (chars.length === 0) return [];
     const res = [];
     for (let char of chars) {
@@ -23,7 +22,7 @@ export const build_char_commands = async (guild_id: string) => {
             execute: async (interaction: any) => {
                 const prompt = interaction.options.getString("prompt");
                 const response = await get_prompt_response(prompt, char);
-                await interaction.editReply(build_char_embed(char, prompt, response));
+                await interaction.editReply({embeds: [build_char_embed(char, prompt, response)]});
             }
         })
     }
