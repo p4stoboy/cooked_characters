@@ -5,6 +5,7 @@ import {get_guild_edit_command} from "../commands/get_guild_edit_command";
 import {get_guild_delete_command} from "../commands/get_guild_delete_command";
 import {Controller} from "../types/Controller";
 import {build_char_commands} from "../commands/build_char_commands";
+import {update_guild_commands} from "../commands/command_post_execute/update_guild_commands";
 
 export const ready = {
   name: Events.ClientReady,
@@ -15,30 +16,7 @@ export const ready = {
     client.user?.setUsername(config.username);
     client.application?.commands.set([newchar()]);
     client.guilds.cache.forEach(async (guild) => {
-      const char_commands = await build_char_commands(guild.id);
-      const edit_command = await get_guild_edit_command(guild.id);
-      const delete_command = await get_guild_delete_command(guild.id);
-      c.commands.set(guild.id, new Map<string, ApplicationCommandData>);
-        char_commands.forEach((command) => {
-        c.commands.get(guild.id)?.set(command.name, command);
-      });
-      c.commands.get(guild.id)?.set(edit_command.name, edit_command);
-      c.commands.get(guild.id)?.set(delete_command.name, delete_command);
-      try {
-        if (!guild.commands.cache.find((command) => command.name === 'editchar')) {
-          const edit_command = await get_guild_edit_command(guild.id);
-          await guild.commands.create(edit_command);
-          console.log(`Successfully registered edit command in ${guild.name}.`)
-        }
-        if (!guild.commands.cache.find((command) => command.name === 'deletechar')) {
-          const delete_command = await get_guild_delete_command(guild.id);
-          await guild.commands.create(delete_command);
-          console.log(`Successfully registered delete command in ${guild.name}.`)
-        }
-      } catch(e) {
-        console.log(e);
-        console.error(`Error registering edit/delete in guild ${guild.name}, id: ${guild.id}`);
-      }
+      await update_guild_commands(guild.id, c);
     });
   },
 }
