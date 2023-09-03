@@ -35,6 +35,7 @@ export const bio_execute = async (interaction: any, guild_id: string, c: Control
         const char_id = interaction.options.getInteger("character");
         const char = await get_char_by_id(char_id);
         interaction.user.send(`**${char.name} bio:**\n${char.bio}`);
+        interaction.reply(`**${char.name} bio sent to your dms.**`, {ephemeral: true});
         return;
     } catch(e) {
         console.log(e);

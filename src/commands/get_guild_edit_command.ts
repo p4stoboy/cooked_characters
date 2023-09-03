@@ -41,7 +41,6 @@ export const edit_execute = async (interaction: any, guild_id: string, c: Contro
             await interaction.reply(`**You are not the creator of ${char.name}**`);
             return;
         }
-        await interaction.user.send(`**Here's the old bio for ${char.name}:**\n\n${char.bio}`);
         const modal = get_char_modal(char);
         await interaction.showModal(modal);
         return;
