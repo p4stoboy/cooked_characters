@@ -1,5 +1,4 @@
 import {Events, Guild} from "discord.js";
-import {register_commands} from "../utility_functions/register_commands";
 
 
 export const GuildCreate = {
@@ -7,8 +6,8 @@ export const GuildCreate = {
   once: false,
   execute: async (guild: Guild) => {
     try {
-      await register_commands(guild.client, guild.id);
-      console.log(`Successfully registered application commands in ${guild.name}.`);
+      // await register_commands(guild.client, guild.id);
+      // console.log(`Successfully registered application commands in ${guild.name}.`);
     } catch(e) {
       console.log(e);
       console.error(`Error registering commands in guild ${guild.name}, id: ${guild.id}`);
