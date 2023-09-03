@@ -7,7 +7,6 @@ export const newchar = () => {
         description: "Create a new character",
         options: [],
         execute: async (interaction: any) => {
-            await interaction.deferReply();
             await interaction.showModal(get_char_modal());
             return;
         }
