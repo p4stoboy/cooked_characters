@@ -13,6 +13,8 @@ export const controller: Controller = {
     commands: new Map<string, Map<string, ApplicationCommandData>>()
 }
 
+
+
 for (const event of events) {
     if (event.once) {
         //@ts-ignore
