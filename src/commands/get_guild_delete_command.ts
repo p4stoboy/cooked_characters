@@ -20,20 +20,19 @@ export const get_guild_delete_command = async (guild_id: string) => {
         }],
         execute: async (interaction: any) => {
             try {
-                interaction.deferReply();
                 const char_id = interaction.options.getInteger("character");
                 const char = await get_char_by_id(char_id);
                 if (interaction.user.id !== char.creator_id) {
-                    await interaction.editReply(`**You are not the creator of ${char.name}**`);
+                    await interaction.reply(`**You are not the creator of ${char.name}**`);
                     return;
                 }
                 await delete_db_character(char_id);
                 await update_edit_and_delete_commands(guild_id, interaction.client);
-                interaction.editReply(`**${char.name} deleted.**`);
+                interaction.reply(`**${char.name} deleted.**`);
                 return;
             } catch(e) {
                 console.log(e);
-                await interaction.editReply("An error occurred.");
+                await interaction.reply("An error occurred.");
             }
         }
     }

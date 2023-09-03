@@ -7,6 +7,7 @@ import {edit_db_character} from "../../db/edit_db_character";
 
 
 export const edit_character_modal_submit = async (i: ModalSubmitInteraction, c: Controller): Promise<void> => {
+    await i.deferReply();
     const f = i.fields;
     const id = i.customId.split("_")[1];
     const name = f.getTextInputValue(`name`);
