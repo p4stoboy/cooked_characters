@@ -2,6 +2,7 @@ import {get_prompt_response} from "../../utility_functions/get_prompt_response";
 import {build_char_embed} from "../../utility_functions/build_char_embed";
 import {Client} from "discord.js";
 import {CharacterProps} from "../../types/CharacterProps";
+import {update_edit_and_delete_commands} from "./update_edit_and_delete_commands";
 
 export const create_char_command = async (client: Client, guild_id: string, char: CharacterProps) => {
     const command = {
@@ -24,6 +25,7 @@ export const create_char_command = async (client: Client, guild_id: string, char
     const guild = await client.guilds.fetch(guild_id);
     try {
         await guild.commands.create(command);
+        await update_edit_and_delete_commands(guild_id, client);
         console.log(`Successfully registered application command ${command.name} in ${guild.name}.`);
     } catch(e) {
         console.log(e);
