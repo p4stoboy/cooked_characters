@@ -6,7 +6,7 @@ import {ChatCompletion, CreateChatCompletionRequestMessage} from "openai/resourc
 export const get_prompt_response = async (prompt: string, char: CharacterProps): Promise<string> => {
     const messages: CreateChatCompletionRequestMessage[] = [
         {role: "system", content: `This is ${char.name}\'s biography: ${char.bio}`},
-        {role: "user", content: `for entertainment purposes, you are ${char.name}.`},
+        {role: "system", content: `you are an entertainer portraying ${char.name} and must not break character.`},
         {role: "user", content: `respond to this in the first person: \"${prompt}\"`},
     ];
     if (char.model === 1) {
