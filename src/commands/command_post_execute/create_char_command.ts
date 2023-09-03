@@ -1,9 +1,9 @@
-import {get_prompt_response} from "./get_prompt_response";
-import {build_char_embed} from "../utility_functions/build_char_embed";
+import {get_prompt_response} from "../../utility_functions/get_prompt_response";
+import {build_char_embed} from "../../utility_functions/build_char_embed";
 import {Client} from "discord.js";
-import {CharacterProps} from "../types/CharacterProps";
+import {CharacterProps} from "../../types/CharacterProps";
 
-export const add_char_command = async (client: Client, guild_id: string, char: CharacterProps) => {
+export const create_char_command = async (client: Client, guild_id: string, char: CharacterProps) => {
     const command = {
         name: char.name.replaceAll(" ", "_").toLowerCase(),
         description: `Say something to ${char.name}`,

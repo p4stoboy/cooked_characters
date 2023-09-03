@@ -1,5 +1,5 @@
 import {Events, Guild} from "discord.js";
-import {register_commands} from "../commands/register_commands";
+import {register_commands} from "../utility_functions/register_commands";
 
 
 export const GuildCreate = {
