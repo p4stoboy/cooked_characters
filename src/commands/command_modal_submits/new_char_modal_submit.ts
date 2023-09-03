@@ -5,6 +5,7 @@ import {Controller} from "../../types/Controller";
 
 
 export const new_character_modal_submit = async (i: ModalSubmitInteraction, c: Controller): Promise<void> => {
+    await i.deferReply();
     const f = i.fields;
     const name = f.getTextInputValue(`name`);
     const bio = f.getTextInputValue(`bio`);
