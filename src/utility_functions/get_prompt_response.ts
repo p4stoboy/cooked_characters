@@ -6,7 +6,8 @@ import {ChatCompletion, CreateChatCompletionRequestMessage} from "openai/resourc
 export const get_prompt_response = async (prompt: string, char: CharacterProps): Promise<string> => {
     const messages: CreateChatCompletionRequestMessage[] = [
         {role: "system", content: `This is ${char.name}\'s biography: ${char.bio}`},
-        {role: "user", content: `in the fashion of ${char.name}, respond to this in the first person: \"${prompt}\"`},
+        {role: "user", content: `for entertainment purposes, you are ${char.name}.`},
+        {role: "user", content: `respond to this in the first person: \"${prompt}\"`},
     ];
     if (char.model === 1) {
         const completion = await openai.completions.create({
@@ -28,11 +29,11 @@ export const get_prompt_response = async (prompt: string, char: CharacterProps):
         const completion = await openai.chat.completions.create({
             messages: messages,
             model: "gpt-3.5-turbo",
-            max_tokens: 200,
+            max_tokens: 180,
             temperature: 0.9,
             top_p: 1,
-            presence_penalty: 1,
-            frequency_penalty: 1,
+            presence_penalty: 0.5,
+            frequency_penalty: 0.5,
             n: 1,
         });
         if (!completion || !completion.choices[0].message.content || completion.choices[0].message.content.split(' ').length < 2 || completion.choices[0].message.content.length > 1980) {
