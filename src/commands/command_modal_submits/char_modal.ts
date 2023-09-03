@@ -13,8 +13,10 @@ export const get_char_modal = (char?: CharacterProps) => {
 
     const name = new TextInputBuilder().setLabel("Character's name").setCustomId("name").setValue(default_name).setRequired(true).setStyle(1).setMaxLength(32);
 
-    const bio = new TextInputBuilder().setLabel("Character's bio").setCustomId("bio").setValue(default_bio).setRequired(true).setMinLength(50).setMaxLength(2000).setStyle(2);
-
+    const bio = new TextInputBuilder().setLabel("Character's bio").setCustomId("bio").setPlaceholder("bio here > 50 characters").setRequired(true).setMinLength(50).setMaxLength(2000).setStyle(2);
+    if (default_bio.length > 49) {
+        bio.setValue(default_bio);
+    }
     const image_url= new TextInputBuilder().setLabel("Avatar URL (optional)").setCustomId("image_url").setValue(default_image_url).setRequired(false).setStyle(1);
 
     const color = new TextInputBuilder().setLabel("Hex color for embed").setCustomId("color").setValue(default_color).setRequired(false).setStyle(1).setMinLength(7).setMaxLength(7).setPlaceholder("#FF6600");
