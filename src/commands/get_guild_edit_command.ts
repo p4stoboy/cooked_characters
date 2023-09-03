@@ -21,16 +21,16 @@ export const get_guild_edit_command = async (guild_id: string) => {
         }],
         execute: async (interaction: any) => {
             try {
-                interaction.deferReply();
                 const char_id = interaction.options.getInteger("character");
                 const char = await get_char_by_id(char_id);
                 if (interaction.user.id !== char.creator_id) {
                     await interaction.editReply(`**You are not the creator of ${char.name}**`);
                     return;
                 }
-                await interaction.user.send(`Here's the old bio for ${char.name}:\n\nchar.bio`);
+                await interaction.user.send(`**Here's the old bio for ${char.name}:**\n\n${char.bio}`);
                 const modal = get_char_modal(char);
                 await interaction.showModal(modal);
+                interaction.deferReply();
                 return;
             } catch(e) {
                 console.log(e);
