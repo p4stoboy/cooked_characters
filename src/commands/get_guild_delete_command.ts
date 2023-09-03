@@ -40,12 +40,13 @@ export const delete_execute = async (interaction: any, guild_id: string, c: Cont
             await interaction.reply(`**You are not the creator of ${char.name}**`);
             return;
         }
+        interaction.deferReply();
         await delete_db_character(char_id);
         await update_guild_commands(guild_id, c);
-        interaction.reply(`**${char.name} deleted.**`);
+        interaction.editReply(`**${char.name} deleted.**`);
         return;
     } catch(e) {
         console.log(e);
-        await interaction.reply("An error occurred.");
+        await interaction.editReply("An error occurred.");
     }
 }
