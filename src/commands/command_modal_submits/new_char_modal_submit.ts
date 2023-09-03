@@ -12,7 +12,8 @@ export const new_character_modal_submit = async (i: ModalSubmitInteraction, c: C
     const creator_id = i.user.id;
     const image_url = f.getTextInputValue(`image_url`);
     const color = f.getTextInputValue(`color`);
-    await new_db_character(name, bio, creator_id, image_url, i.guildId as string, color);
+    const model = f.getTextInputValue(`model`);
+    await new_db_character(name, bio, creator_id, image_url, i.guildId as string, color, parseInt(model));
     await post_modal_execute(i.guildId as string, c, "new character");
     await i.editReply({content: `**Character created: ${name}.**`});
 }

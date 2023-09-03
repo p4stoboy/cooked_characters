@@ -13,7 +13,8 @@ export const edit_character_modal_submit = async (i: ModalSubmitInteraction, c: 
     const creator_id = i.user.id;
     const image_url = f.getTextInputValue(`image_url`);
     const color = f.getTextInputValue(`color`);
-    await edit_db_character(parseInt(id), name, bio, image_url, color);
+    const model = f.getTextInputValue(`model`);
+    await edit_db_character(parseInt(id), name, bio, image_url, color, parseInt(model));
     await post_modal_execute(i.guildId as string, c, "edit character");
     await i.editReply({content: `**Character edited: ${name}.**`});
 }

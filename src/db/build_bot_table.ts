@@ -8,6 +8,8 @@ const chars = `CREATE TABLE IF NOT EXISTS characters(
     image_url TEXT DEFAULT NULL,
     color VARCHAR(7) DEFAULT "#FF6600",
     guild_id VARCHAR(18) NOT NULL,
+    active INT DEFAULT 1,
+    model INT DEFAULT 1,
     PRIMARY KEY (id)
 )`;
 
