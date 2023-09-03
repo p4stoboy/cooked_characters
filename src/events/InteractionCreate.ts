@@ -1,7 +1,7 @@
-import {Events, Interaction} from 'discord.js';
-import char_modal from "../commands/newchar";
-import {new_character} from "../db/new_character";
-import {get_commands} from "../commands";
+import {ApplicationCommand, Events, Interaction} from 'discord.js';
+import {get_char_modal} from "../commands/command_modal_submits/char_modal";
+import {new_character} from "../commands/command_modal_submits/new_char";
+import {edit_character} from "../commands/command_modal_submits/edit_char";
 
 export const InteractionCreate = {
   name: Events.InteractionCreate,
@@ -11,12 +11,10 @@ export const InteractionCreate = {
 
     if (interaction.isChatInputCommand()) {
       if (interaction.commandName === `newchar`) {
-        await interaction.showModal(char_modal)
+        await interaction.showModal(get_char_modal())
         return;
       }
-      const {commands} = await get_commands(interaction.guildId as string);
-      const command = commands.get(interaction.commandName);
-
+      const command: ApplicationCommand | undefined = interaction.guild?.commands.cache.reduce((acc, command): ApplicationCommand => { return command.name === interaction.commandName ? command : acc });
       if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
@@ -31,8 +29,13 @@ export const InteractionCreate = {
         console.error(error);
       }
     } else {
-        await interaction.deferReply();
-        await new_character(interaction);
+        if (interaction.customId === `new_char`) {
+          await new_character(interaction);
+          return;
+        } else {
+          await edit_character(interaction);
+          return;
+        }
     }
   },
 };
