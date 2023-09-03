@@ -2,11 +2,12 @@ import {ApplicationCommand, Events, Interaction} from 'discord.js';
 import {get_char_modal} from "../commands/command_modal_submits/char_modal";
 import {new_character} from "../commands/command_modal_submits/new_char";
 import {edit_character} from "../commands/command_modal_submits/edit_char";
+import {Controller} from "../types/Controller";
 
 export const InteractionCreate = {
   name: Events.InteractionCreate,
   once: false,
-  execute: async (interaction: Interaction) => {
+  execute: async (controller: Controller, interaction: Interaction) => {
     if (!interaction.isChatInputCommand() && !interaction.isModalSubmit()) return;
 
     if (interaction.isChatInputCommand()) {
@@ -14,7 +15,7 @@ export const InteractionCreate = {
         await interaction.showModal(get_char_modal())
         return;
       }
-      const command: ApplicationCommand | undefined = interaction.guild?.commands.cache.reduce((acc, command): ApplicationCommand => { return command.name === interaction.commandName ? command : acc });
+      const command = controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
       if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
@@ -30,10 +31,10 @@ export const InteractionCreate = {
       }
     } else {
         if (interaction.customId === `new_char`) {
-          await new_character(interaction);
+          await new_character(interaction, controller);
           return;
         } else {
-          await edit_character(interaction);
+          await edit_character(interaction, controller);
           return;
         }
     }
