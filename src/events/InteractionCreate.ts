@@ -18,6 +18,9 @@ export const InteractionCreate = {
         return;
       }
       const command = controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
+      console.log(controller.commands);
+      console.log(controller.commands.get(interaction.guildId as string));
+      console.log(interaction.commandName);
       if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
