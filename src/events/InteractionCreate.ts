@@ -24,7 +24,6 @@ export const InteractionCreate = {
       }
 
       try {
-        await interaction.deferReply();
         //@ts-ignore
         await command.execute(interaction);
       } catch (error) {
