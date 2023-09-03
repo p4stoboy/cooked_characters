@@ -6,6 +6,7 @@ import {
 } from "../commands/command_modal_submits/edit_character_modal_submit";
 import {Controller} from "../types/Controller";
 import command_func_map from "../commands";
+import client_commands from "../commands/client_commands";
 
 export const InteractionCreate = {
   name: Events.InteractionCreate,
@@ -18,16 +19,19 @@ export const InteractionCreate = {
         await interaction.showModal(get_char_modal())
         return;
       }
-      let command = controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
+      let command = client_commands.get(interaction.commandName); //controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
       if (!command) {
-        const command_data = await command_func_map.get(interaction.commandName)?.(interaction.guildId as string) as ApplicationCommandData;
-        controller.commands.set(interaction.guildId as string, new Map().set(interaction.commandName, command_data));
-        command = controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
+        // const command_data = await command_func_map.get(interaction.commandName)?.(interaction.guildId as string) as ApplicationCommandData;
+        // controller.commands.set(interaction.guildId as string, new Map().set(interaction.commandName, command_data));
+        // command = controller.commands.get(interaction.guildId as string)?.get(interaction.commandName);
+        console.log(`Command ${interaction.commandName} not found`);
+        return;
       }
 
       try {
         //@ts-ignore
-        await command.execute(interaction);
+        await command.execute(interaction, interaction.guildId, controller);
+        return;
       } catch (error) {
         console.error(`Error executing ${interaction.commandName}`);
         console.error(error);
