@@ -1,7 +1,9 @@
 import {ApplicationCommand, Events, Interaction} from 'discord.js';
 import {get_char_modal} from "../commands/command_modal_submits/char_modal";
-import {new_character} from "../commands/command_modal_submits/new_char";
-import {edit_character} from "../commands/command_modal_submits/edit_char";
+import {new_character_modal_submit} from "../commands/command_modal_submits/new_char_modal_submit";
+import {
+  edit_character_modal_submit
+} from "../commands/command_modal_submits/edit_character_modal_submit";
 import {Controller} from "../types/Controller";
 
 export const InteractionCreate = {
@@ -31,10 +33,10 @@ export const InteractionCreate = {
       }
     } else {
         if (interaction.customId === `new_char`) {
-          await new_character(interaction, controller);
+          await new_character_modal_submit(interaction, controller);
           return;
         } else {
-          await edit_character(interaction, controller);
+          await edit_character_modal_submit(interaction, controller);
           return;
         }
     }

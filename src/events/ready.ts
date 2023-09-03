@@ -1,8 +1,8 @@
 import {ApplicationCommandData, Client, Events} from 'discord.js';
 const config = require('../config.json');
 import {newchar} from "../commands/newchar";
-import {editchar} from "../commands/editchar";
-import {deletechar} from "../commands/deletechar";
+import {get_guild_edit_command} from "../commands/get_guild_edit_command";
+import {get_guild_delete_command} from "../commands/get_guild_delete_command";
 import {Controller} from "../types/Controller";
 import {build_char_commands} from "../commands/build_char_commands";
 
@@ -16,8 +16,8 @@ export const ready = {
     client.application?.commands.set([newchar()]);
     client.guilds.cache.forEach(async (guild) => {
       const char_commands = await build_char_commands(guild.id);
-      const edit_command = await editchar(guild.id);
-      const delete_command = await deletechar(guild.id);
+      const edit_command = await get_guild_edit_command(guild.id);
+      const delete_command = await get_guild_delete_command(guild.id);
       c.commands.set(guild.id, new Map<string, ApplicationCommandData>);
         char_commands.forEach((command) => {
         c.commands.get(guild.id)?.set(command.name, command);
@@ -26,12 +26,12 @@ export const ready = {
       c.commands.get(guild.id)?.set(delete_command.name, delete_command);
       try {
         if (!guild.commands.cache.find((command) => command.name === 'editchar')) {
-          const edit_command = await editchar(guild.id);
+          const edit_command = await get_guild_edit_command(guild.id);
           await guild.commands.create(edit_command);
           console.log(`Successfully registered edit command in ${guild.name}.`)
         }
         if (!guild.commands.cache.find((command) => command.name === 'deletechar')) {
-          const delete_command = await deletechar(guild.id);
+          const delete_command = await get_guild_delete_command(guild.id);
           await guild.commands.create(delete_command);
           console.log(`Successfully registered delete command in ${guild.name}.`)
         }

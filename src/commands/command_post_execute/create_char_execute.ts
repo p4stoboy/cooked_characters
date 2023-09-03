@@ -5,7 +5,7 @@ import {CharacterProps} from "../../types/CharacterProps";
 import {update_edit_and_delete_commands} from "./update_edit_and_delete_commands";
 import {Controller} from "../../types/Controller";
 
-export const create_char_command = async (client: Client, guild_id: string, char: CharacterProps, c: Controller) => {
+export const create_char_execute = async (client: Client, guild_id: string, char: CharacterProps, c: Controller) => {
     const command = {
         name: char.name.replaceAll(" ", "_").toLowerCase(),
         description: `Say something to ${char.name}`,
