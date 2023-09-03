@@ -1,9 +1,10 @@
-import {Client} from "discord.js";
+
 import {CharacterProps} from "../../types/CharacterProps";
 import {get_prompt_response} from "../../utility_functions/get_prompt_response";
 import {build_char_embed} from "../../utility_functions/build_char_embed";
 import {update_edit_and_delete_commands} from "./update_edit_and_delete_commands";
-export const edit_char_command = async (client: Client, guild_id: string, old_char: CharacterProps, new_char: CharacterProps) => {
+import {Controller} from "../../types/Controller";
+export const edit_char_command = async (c: Controller, guild_id: string, old_char: CharacterProps, new_char: CharacterProps) => {
     const command = {
         name: new_char.name.replaceAll(" ", "_").toLowerCase(),
         description: `Say something to ${new_char.name}`,
@@ -21,12 +22,12 @@ export const edit_char_command = async (client: Client, guild_id: string, old_ch
             await interaction.editReply({embeds: [build_char_embed(new_char, prompt, response)]});
         }
     };
-    const guild = await client.guilds.fetch(guild_id);
+    const guild = await c.client.guilds.fetch(guild_id);
     try {
         const old_command = guild.commands.cache.reduce((a,b) => b.name === old_char.name.replaceAll(" ", "_").toLowerCase() ? b : a);
         await guild.commands.delete(old_command);
         await guild.commands.create(command);
-        await update_edit_and_delete_commands(guild_id, client);
+        await update_edit_and_delete_commands(guild_id, c);
         console.log(`Successfully edited application command ${new_char.name} -> ${old_char.name} in ${guild.name}.`);
     } catch(e) {
         console.log(e);

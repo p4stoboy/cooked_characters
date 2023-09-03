@@ -19,8 +19,5 @@
 //     }
 //     return {commands_array, commands};
 // }
-//
-//
-// export const update_commands = async (guild_id: string, client: Client) => {
-//
-// }
+
+
