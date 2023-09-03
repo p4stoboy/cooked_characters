@@ -4,7 +4,7 @@ import {ActionRowBuilder, ModalBuilder, TextInputBuilder} from "discord.js";
 export const get_char_modal = (char?: CharacterProps) => {
 
     const default_name = char ? char.name : "";
-    const default_bio = char ? char.bio : "";
+    const default_bio = char ? "current bio has been dmed": "";
     const default_image_url = char ? char.image_url ? char.image_url : "" : "";
     const default_color = char ? char.color ? char.color : "#FF6600" : "#FF6600";
     const id = char ? char.id : "";

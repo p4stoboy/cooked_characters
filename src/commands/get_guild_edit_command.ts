@@ -1,17 +1,18 @@
 import {get_guild_chars} from "../db/get_guild_chars";
 import {get_char_by_id} from "../db/get_char_by_id";
-import {delete_db_character} from "../db/delete_char_by_id";
-import {update_edit_and_delete_commands} from "./command_post_execute/update_edit_and_delete_commands";
+import {get_char_modal} from "./command_modal_submits/char_modal";
 
-export const deletechar = async (guild_id: string) => {
+
+
+export const get_guild_edit_command = async (guild_id: string) => {
     const chars = await get_guild_chars(guild_id);
     const name = chars.map(char => char.name.toLowerCase().replaceAll(" ", "_"));
-    const _delete = {
-        name: "deletechar",
-        description: "Delete a character",
+    const edit = {
+        name: "editchar",
+        description: "Edit a character's information.",
         options: [{
             name: "character",
-            description: "The character to delete.",
+            description: "The character to edit.",
             type: 4,
             required: true,
             choices: name.map((name, index) => {
@@ -27,9 +28,9 @@ export const deletechar = async (guild_id: string) => {
                     await interaction.editReply(`**You are not the creator of ${char.name}**`);
                     return;
                 }
-                await delete_db_character(char_id);
-                await update_edit_and_delete_commands(guild_id, interaction.client);
-                interaction.editReply(`**${char.name} deleted.**`);
+                await interaction.user.send(`Here's the old bio for ${char.name}:\n\nchar.bio`);
+                const modal = get_char_modal(char);
+                await interaction.showModal(modal);
                 return;
             } catch(e) {
                 console.log(e);
@@ -37,5 +38,5 @@ export const deletechar = async (guild_id: string) => {
             }
         }
     }
-    return _delete;
+    return edit;
 }
