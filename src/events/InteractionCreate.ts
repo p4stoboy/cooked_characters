@@ -1,11 +1,10 @@
-import {ApplicationCommand, ApplicationCommandData, Events, Interaction} from 'discord.js';
+import {Events, Interaction} from 'discord.js';
 import {get_char_modal} from "../commands/command_modal_submits/char_modal";
 import {new_character_modal_submit} from "../commands/command_modal_submits/new_char_modal_submit";
 import {
   edit_character_modal_submit
 } from "../commands/command_modal_submits/edit_character_modal_submit";
 import {Controller} from "../types/Controller";
-import command_func_map from "../commands";
 import client_commands from "../commands/client_commands";
 
 export const InteractionCreate = {
@@ -30,7 +29,7 @@ export const InteractionCreate = {
 
       try {
         //@ts-ignore
-        await command.execute(interaction, interaction.guildId, controller);
+        await command(interaction, interaction.guildId, controller);
         return;
       } catch (error) {
         console.error(`Error executing ${interaction.commandName}`);
