@@ -15,8 +15,5 @@ export const ready = {
     client.user?.setAvatar(config.avatar_url).catch((e) => console.log(e));
     client.user?.setUsername(config.username);
     client.application?.commands.set([newchar()]);
-    client.guilds.cache.forEach(async (guild) => {
-      await update_guild_commands(guild.id, c);
-    });
   },
 }
