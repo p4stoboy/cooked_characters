@@ -1,6 +1,6 @@
 import {CharacterProps} from "../types/CharacterProps";
 import {openai} from "../openai/openai";
-import {ChatCompletion, CreateChatCompletionRequestMessage} from "openai/resources/chat";
+import {CreateChatCompletionRequestMessage} from "openai/resources/chat";
 
 
 export const get_prompt_response = async (prompt: string, char: CharacterProps): Promise<string> => {

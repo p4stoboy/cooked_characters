@@ -1,6 +1,7 @@
-import {ApplicationCommand, ApplicationCommandData, Client, ClientEvents, Events, GatewayIntentBits} from 'discord.js';
-import { events } from './events/index';
+import {ApplicationCommandData, Client, ClientEvents, GatewayIntentBits} from 'discord.js';
+import {events} from './events/index';
 import {Controller} from "./types/Controller";
+
 const config = require('./config.json');
 
 
@@ -22,6 +23,5 @@ for (const event of events) {
         client.on(event.name as keyof ClientEvents, (...args) => event.execute(controller, ...args));
     }
 }
-//
-// Log in to Discord with your client's token
+
 client.login(config.token);

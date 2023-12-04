@@ -6,15 +6,6 @@ import {Controller} from "../types/Controller";
 
 export const get_guild_say_command = async (guild_id: string) => {
     const chars = await get_guild_chars(guild_id);
-    // if (chars.length === 0) return {
-    //     name: "say",
-    //     description: "This guild has no characters, create one with /newchar",
-    //     options: [],
-    //     execute: async (interaction: any) => {
-    //         await interaction.reply("This guild has no characters, create one with /newchar");
-    //         return;
-    //     }
-    // }
     const names = chars.map(char => char.name.replaceAll(" ", "_").toLowerCase());
     return {
         name: "say",

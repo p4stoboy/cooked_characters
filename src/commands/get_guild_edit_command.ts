@@ -4,18 +4,8 @@ import {get_char_modal} from "./command_modal_submits/char_modal";
 import {Controller} from "../types/Controller";
 
 
-
 export const get_guild_edit_command = async (guild_id: string) => {
     const chars = await get_guild_chars(guild_id);
-    // if (chars.length === 0) return {
-    //     name: "editchar",
-    //     description: "This guild has no characters, create one with /newchar",
-    //     options: [],
-    //     execute: async (interaction: any) => {
-    //         await interaction.reply("This guild has no characters, create one with /newchar");
-    //         return;
-    //     }
-    // }
     const name = chars.map(char => char.name.toLowerCase().replaceAll(" ", "_"));
     const edit = {
         name: "editchar",

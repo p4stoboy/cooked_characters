@@ -1,7 +1,8 @@
 import {Client, Events} from 'discord.js';
-const config = require('../config.json');
 import {newchar} from "../commands/newchar";
 import {Controller} from "../types/Controller";
+
+const config = require('../config.json');
 
 export const ready = {
   name: Events.ClientReady,
